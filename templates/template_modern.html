@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carousel Slide - Modern</title>
+  <style>
+    :root {
+      --brand-primary: {{brand_primary | default: "#6C5CE7"}};
+      --brand-accent: {{brand_accent | default: "#00CEC9"}};
+      --brand-bg: {{brand_bg | default: "#0f1020"}};
+      --font-family: {{font_family | default: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"}};
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 1080px;
+      height: 1080px;
+      font-family: var(--font-family);
+      background: linear-gradient(135deg, var(--brand-bg) 0%, #0b0c1a 100%);
+      color: #ffffff;
+    }
+
+    .canvas {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 84px;
+      width: 1080px;
+      height: 1080px;
+    }
+
+    .brand-pill {
+      width: 160px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+      margin-bottom: 36px;
+    }
+
+    .title {
+      font-size: 84px;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 36px 0;
+    }
+
+    .bullets {
+      margin: 24px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 22px;
+    }
+
+    .bullet {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      align-items: start;
+      gap: 16px;
+      font-size: 36px;
+      line-height: 1.35;
+      color: #e9e9ff;
+    }
+
+    .dot {
+      width: 18px;
+      height: 18px;
+      margin-top: 12px;
+      border-radius: 50%;
+      background: var(--brand-accent);
+      box-shadow: 0 0 18px rgba(0, 206, 201, 0.6);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 48px;
+      left: 84px;
+      right: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #cfcff5;
+      font-size: 28px;
+      opacity: 0.9;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .progress {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .progress .bar {
+      width: 120px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress .bar > span {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: calc(({{slide_number | default: 1}} / max(1, {{total_slides | default: 8}})) * 100%);
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="brand-pill"></div>
+    <h1 class="title">{{slide_title}}</h1>
+
+    <ul class="bullets">
+      {% if bullet_1 %}
+      <li class="bullet"><span class="dot"></span><span>{{bullet_1}}</span></li>
+      {% endif %}
+      {% if bullet_2 %}
+      <li class="bullet"><span class="dot"></span><span>{{bullet_2}}</span></li>
+      {% endif %}
+      {% if bullet_3 %}
+      <li class="bullet"><span class="dot"></span><span>{{bullet_3}}</span></li>
+      {% endif %}
+    </ul>
+
+    <div class="footer">
+      <div class="tag">
+        <div class="logo">
+          {% if logo_url %}
+            <img src="{{logo_url}}" alt="logo" />
+          {% endif %}
+        </div>
+        <span>{{brand_tagline | default: "@yourbrand"}}</span>
+      </div>
+      <div class="progress">
+        <div class="bar"><span></span></div>
+        <span>{{slide_number | default: 1}} / {{total_slides | default: 8}}</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
